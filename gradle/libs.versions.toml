@@ -17,6 +17,7 @@ kotlin-serialization = "2.0.21"
 mockk = "1.13.13"
 kotlinx-coroutines-test = "1.9.0"
 koin = "4.0.0"
+composeNavigation = "2.8.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -42,6 +43,8 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhtt
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk"}
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
