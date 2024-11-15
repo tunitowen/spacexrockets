@@ -7,5 +7,6 @@ fun RocketDto.toRocket(): Rocket = Rocket(
     id = this.id,
     name = this.name,
     type = this.type,
-    active = this.active
+    active = this.active,
+    images = this.flickrImages.orEmpty()
 )

@@ -4,5 +4,6 @@ data class Rocket(
     val id: String,
     val name: String,
     val type: String,
-    val active: Boolean
+    val active: Boolean,
+    val images: List<String>
 )
