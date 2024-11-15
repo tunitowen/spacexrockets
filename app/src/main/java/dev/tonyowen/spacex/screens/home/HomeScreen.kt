@@ -2,7 +2,17 @@
 
 package dev.tonyowen.spacex.screens.home
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -10,22 +20,59 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import dev.tonyowen.spacex.network.utils.NetworkResponse
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier,
-               viewModel: HomeScreenViewModel = koinViewModel()) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: HomeScreenViewModel = koinViewModel()
+) {
 
-    val rocketsResponse = viewModel.rockets.collectAsState()
+    val rocketsResponse by viewModel.rockets.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.getRockets()
     }
 
     Scaffold(topBar = {
-        TopAppBar(title = { Text("SpaceX Rockets")})
+        TopAppBar(title = { Text("SpaceX Rockets") })
     }) { innerPadding ->
-        Text("Home Screen", modifier = Modifier.padding(innerPadding))
+
+        when (rocketsResponse) {
+            is NetworkResponse.Loading -> Box(modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            }
+
+            is NetworkResponse.Failure -> Box(modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)) {
+                Text(text = "Something went wrong", modifier = Modifier.align(Alignment.Center))
+            }
+
+            is NetworkResponse.Success -> {
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    contentPadding = PaddingValues(24.dp)
+                ) {
+                    items((rocketsResponse as NetworkResponse.Success).data.orEmpty()) {
+                        Card(modifier = Modifier.fillMaxWidth()) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Text(it.name)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
