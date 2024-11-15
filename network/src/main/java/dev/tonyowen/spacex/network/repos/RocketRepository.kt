@@ -1,7 +1,6 @@
 package dev.tonyowen.spacex.network.repos
 
 import dev.tonyowen.spacex.modules.business.rocket.Rocket
-import dev.tonyowen.spacex.modules.network.rocket.RocketDto
 import dev.tonyowen.spacex.network.mappers.toRocket
 import dev.tonyowen.spacex.network.services.RocketService
 import dev.tonyowen.spacex.network.utils.NetworkResponse

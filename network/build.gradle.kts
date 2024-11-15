@@ -37,9 +37,9 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
-    implementation(libs.retrofit)
-    implementation(libs.okhttp)
-    implementation(libs.kotlinx.serialization.json)
+    api(libs.retrofit)
+    api(libs.okhttp)
+    api(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
