@@ -21,3 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "spacex"
 include(":app")
+include(":network")
+include(":models")
+include(":ui")
+include(":core")
