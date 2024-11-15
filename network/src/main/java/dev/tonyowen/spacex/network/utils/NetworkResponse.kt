@@ -16,9 +16,14 @@ data class ApiError(
     val message: String,
 )
 
-fun <T, Y> Response<T>.foldIntoNetworkResponse(mapper: (T?) -> Y): NetworkResponse<Y> {
+fun <T, Y> Response<T>.foldIntoNetworkResponse(mapper: (T) -> Y): NetworkResponse<Y> {
     return if (this.isSuccessful) {
-        NetworkResponse.Success(data = mapper(this.body()))
+        this.body()?.let {
+            NetworkResponse.Success(data = mapper(it))
+        } ?: run {
+            NetworkResponse.Failure(code = 999, error = "Error: Body is null")
+        }
+
     } else {
         NetworkResponse.Failure(code = this.code(), error = this.errorBody().toString())
     }

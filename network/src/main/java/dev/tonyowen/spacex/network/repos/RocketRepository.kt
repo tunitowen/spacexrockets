@@ -16,9 +16,9 @@ class RocketRepository(private val service: RocketService) {
         })
     }
 
-    suspend fun getRocketById(id: String): NetworkResponse<Rocket?> {
+    suspend fun getRocketById(id: String): NetworkResponse<Rocket> {
         return service.getRocket(id).foldIntoNetworkResponse({
-            it?.toRocket()
+            it.toRocket()
         })
     }
 }

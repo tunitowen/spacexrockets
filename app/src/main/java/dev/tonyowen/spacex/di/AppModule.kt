@@ -3,6 +3,7 @@ package dev.tonyowen.spacex.di
 import dev.tonyowen.spacex.core.constants.NetworkConstants
 import dev.tonyowen.spacex.network.repos.RocketRepository
 import dev.tonyowen.spacex.network.services.RocketService
+import dev.tonyowen.spacex.screens.details.DetailsScreenViewModel
 import dev.tonyowen.spacex.screens.home.HomeScreenViewModel
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -31,4 +32,5 @@ val appModule = module {
     single { RocketRepository(get()) }
 
     viewModel { HomeScreenViewModel(get()) }
+    viewModel { DetailsScreenViewModel(get()) }
 }
