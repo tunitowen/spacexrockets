@@ -2,6 +2,7 @@
 
 package dev.tonyowen.spacex.screens.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,13 +25,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import dev.tonyowen.spacex.navigation.DetailsDestination
 import dev.tonyowen.spacex.network.utils.NetworkResponse
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeScreenViewModel = koinViewModel()
+    viewModel: HomeScreenViewModel = koinViewModel(),
+    navController: NavHostController
 ) {
 
     val rocketsResponse by viewModel.rockets.collectAsState()
@@ -65,7 +69,9 @@ fun HomeScreen(
                     contentPadding = PaddingValues(24.dp)
                 ) {
                     items((rocketsResponse as NetworkResponse.Success).data.orEmpty()) {
-                        Card(modifier = Modifier.fillMaxWidth()) {
+                        Card(modifier = Modifier.fillMaxWidth().clickable {
+                            navController.navigate(DetailsDestination(it.id))
+                        }) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 Text(it.name)
                             }

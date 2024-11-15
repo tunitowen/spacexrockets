@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import dev.tonyowen.spacex.screens.details.DetailsScreen
 import dev.tonyowen.spacex.screens.home.HomeScreen
 
 @Composable
@@ -14,11 +15,11 @@ fun SpaceNavHost(modifier: Modifier = Modifier, navController: NavHostController
 
     NavHost(modifier = modifier, navController = navController, startDestination = HomeDestination) {
         composable<HomeDestination>() {
-            HomeScreen()
+            HomeScreen(navController = navController)
         }
         composable<DetailsDestination> {
             val args = it.toRoute<DetailsDestination>()
-            Text("Details ${args.id}")
+            DetailsScreen(rocketId = args.id)
         }
     }
 
