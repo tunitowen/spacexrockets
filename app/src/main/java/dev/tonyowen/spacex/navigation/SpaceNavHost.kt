@@ -19,7 +19,7 @@ fun SpaceNavHost(modifier: Modifier = Modifier, navController: NavHostController
         }
         composable<DetailsDestination> {
             val args = it.toRoute<DetailsDestination>()
-            DetailsScreen(rocketId = args.id)
+            DetailsScreen(rocketId = args.id, navController = navController)
         }
     }
 
