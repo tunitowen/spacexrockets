@@ -1,15 +1,14 @@
 package dev.tonyowen.spacex.ui.components.pager
 
-import android.widget.HorizontalScrollView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -49,8 +48,9 @@ fun RocketImagePager(modifier: Modifier = Modifier, rocket: Rocket) {
                 Text(
                     "${pagerState.currentPage + 1} of ${pagerState.pageCount}",
                     color = Color.White,
+                    style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
-                        .padding(4.dp)
+                        .padding(vertical = 4.dp, horizontal = 8.dp)
                 )
             }
         }
