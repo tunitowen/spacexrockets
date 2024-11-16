@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -27,7 +28,7 @@ fun RocketImagePager(modifier: Modifier = Modifier, rocket: Rocket) {
         rocket.images.size
     }
 
-    Box(modifier = Modifier
+    Box(modifier = modifier
         .fillMaxWidth()
         .aspectRatio(16f / 9f)) {
         HorizontalPager(pagerState) { index ->
@@ -36,7 +37,7 @@ fun RocketImagePager(modifier: Modifier = Modifier, rocket: Rocket) {
                 contentDescription = "${rocket.name} image ${index + 1}",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(16f / 9f),
+                    .aspectRatio(16f / 9f).clip(RoundedCornerShape(12.dp)),
                 contentScale = ContentScale.Crop
             )
         }
