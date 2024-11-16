@@ -6,12 +6,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -23,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.tonyowen.spacex.network.utils.NetworkResponse
+import dev.tonyowen.spacex.ui.components.cards.RocketDetailsListCard
 import dev.tonyowen.spacex.ui.components.pager.RocketImagePager
 import org.koin.androidx.compose.koinViewModel
 import java.text.NumberFormat
@@ -38,10 +38,6 @@ fun DetailsScreen(modifier: Modifier = Modifier, rocketId: String, viewModel: De
     }
 
     val rocketResponse by viewModel.rocket.collectAsState()
-
-    val pagerState = rememberPagerState() {
-        rocketResponse.data?.images?.size ?: 0
-    }
 
     Scaffold(modifier = modifier, topBar = {
         TopAppBar(title = { Text(rocketResponse.data?.name ?: "") })
@@ -80,6 +76,37 @@ fun DetailsScreen(modifier: Modifier = Modifier, rocketId: String, viewModel: De
                                 Text(text = "Cost per launch: ${NumberFormat.getCurrencyInstance(Locale.US).format(rocket.costPerLaunch)}", style = MaterialTheme.typography.bodyMedium)
                                 Text(text = "Success rate: ${rocket.successRate}%", style = MaterialTheme.typography.bodyMedium)
                             }
+                        }
+                    }
+
+                    item {
+                        Card(modifier = Modifier.fillMaxSize()) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Text(text = rocket.description, style = MaterialTheme.typography.bodyMedium)
+                            }
+                        }
+                    }
+
+                    item {
+                        RocketDetailsListCard(modifier = Modifier.fillMaxWidth(),title = "Specifications", details = listOf(
+                            "Height" to rocket.height,
+                            "Diameter" to rocket.diameter,
+                            "Mass" to rocket.mass
+                        ))
+                    }
+
+                    item {
+                        RocketDetailsListCard(modifier = Modifier.fillMaxWidth(),title = "Engines", details = listOf(
+                            "Type" to rocket.engineType,
+                            "Number" to rocket.numberOfEngines.toString(),
+                            "Thrust" to rocket.thrust,
+                            "Fuel" to rocket.fuel
+                        ))
+                    }
+
+                    item {
+                        OutlinedButton(modifier = Modifier.fillMaxWidth(), onClick = {}) {
+                            Text("Want to know more? Head to Wikipedia")
                         }
                     }
                 }

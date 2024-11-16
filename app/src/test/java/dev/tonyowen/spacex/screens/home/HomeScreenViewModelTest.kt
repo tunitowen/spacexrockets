@@ -41,7 +41,7 @@ class HomeScreenViewModelTest {
                 Rocket(
                     id = "1",
                     name = "test",
-                    type = "type",
+                    engineType = "type",
                     active = true,
                     images = emptyList()
                 )

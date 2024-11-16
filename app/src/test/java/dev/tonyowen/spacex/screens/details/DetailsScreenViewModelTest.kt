@@ -29,7 +29,7 @@ class DetailsScreenViewModelTest {
     @Test
     fun getRocket_callsRepository() = runTest {
         coEvery { mockRocketRepository.getRocketById("1") } returns NetworkResponse.Success(Rocket(
-            id = "1", name= "Falcon 9", active = true, images = emptyList(), type = "type"
+            id = "1", name= "Falcon 9", active = true, images = emptyList(), engineType = "type"
         ))
         viewModel.getRocket("1")
         coVerify { mockRocketRepository.getRocketById("1") }
@@ -38,7 +38,7 @@ class DetailsScreenViewModelTest {
     @Test
     fun getRocket_success_setsState() = runTest {
         coEvery { mockRocketRepository.getRocketById("1") } returns NetworkResponse.Success(Rocket(
-            id = "1", name= "Falcon 9", active = true, images = emptyList(), type = "type"
+            id = "1", name= "Falcon 9", active = true, images = emptyList(), engineType = "type"
         ))
         viewModel.getRocket("1")
         assert(viewModel.rocket.value.data!!.id == "1")
