@@ -15,11 +15,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -27,8 +30,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import dev.tonyowen.spacex.R
 import dev.tonyowen.spacex.navigation.DetailsDestination
 import dev.tonyowen.spacex.network.utils.NetworkResponse
 import dev.tonyowen.spacex.ui.components.cards.RocketCard
@@ -48,7 +53,10 @@ fun HomeScreen(
     }
 
     Scaffold(topBar = {
-        TopAppBar(title = { Text("SpaceX Rockets") })
+        CenterAlignedTopAppBar(
+            title = { Icon(painter = painterResource(id = R.drawable.spacex_logo), contentDescription = "SpaceX Logo", modifier = Modifier.height(20.dp), tint = Color.White) }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = Color.Black
+            ))
     }) { innerPadding ->
 
         when (rocketsResponse) {
