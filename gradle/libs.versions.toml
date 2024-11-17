@@ -19,6 +19,8 @@ kotlinx-coroutines-test = "1.9.0"
 koin = "4.0.0"
 composeNavigation = "2.8.4"
 coil = "3.0.3"
+composeUnitTest = "1.7.5"
+robolectric = "4.12.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -48,6 +50,8 @@ koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compos
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation"}
 coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil"}
 coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
+compose-ui-testing  = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "composeUnitTest" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

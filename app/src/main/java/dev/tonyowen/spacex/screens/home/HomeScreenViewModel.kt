@@ -11,12 +11,12 @@ import kotlinx.coroutines.launch
 
 class HomeScreenViewModel(private val rocketRepository: RocketRepository) : ViewModel() {
 
-    private val _rockets = MutableStateFlow<NetworkResponse<List<Rocket>>>(NetworkResponse.Loading())
-    val rockets = _rockets.asStateFlow()
+    private val _rocketsState = MutableStateFlow<NetworkResponse<List<Rocket>>>(NetworkResponse.Loading())
+    val rocketsState = _rocketsState.asStateFlow()
 
     fun getRockets() {
         viewModelScope.launch {
-            _rockets.value = rocketRepository.getRockets()
+            _rocketsState.value = rocketRepository.getRockets()
         }
     }
 }

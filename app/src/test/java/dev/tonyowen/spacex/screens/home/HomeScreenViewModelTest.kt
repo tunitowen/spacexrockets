@@ -48,14 +48,14 @@ class HomeScreenViewModelTest {
             )
         )
         viewModel.getRockets()
-        assertTrue(viewModel.rockets.value.data?.size == 1);
+        assertTrue(viewModel.rocketsState.value.data?.size == 1);
     }
 
     @Test
     fun getRocketsFailure_setsState() = runTest {
         coEvery { mockRocketRepository.getRockets() } returns NetworkResponse.Failure(code = 404, error = "Not Found")
         viewModel.getRockets()
-        assertTrue(viewModel.rockets.value.error != null);
+        assertTrue(viewModel.rocketsState.value.error != null);
     }
 
 }
