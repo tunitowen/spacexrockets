@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
@@ -24,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import dev.tonyowen.spacex.network.utils.NetworkResponse
@@ -43,6 +42,12 @@ import dev.tonyowen.spacex.ui.components.pager.RocketImagePager
 import org.koin.androidx.compose.koinViewModel
 import java.text.NumberFormat
 import java.util.Locale
+
+object DetailsScreenTags {
+    const val LOADING = "DetailsScreen-Loading"
+    const val ERROR = "DetailsScreen-Error"
+    const val CONTENT = "DetailsScreen-Content"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +62,7 @@ fun DetailsScreen(
         viewModel.getRocket(rocketId)
     }
 
-    val rocketResponse by viewModel.rocket.collectAsState()
+    val rocketResponse by viewModel.rocketState.collectAsState()
     val context = LocalContext.current
 
     Scaffold(modifier = modifier, topBar = {
@@ -79,6 +84,7 @@ fun DetailsScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
+                    .testTag(DetailsScreenTags.LOADING)
             ) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
@@ -87,6 +93,7 @@ fun DetailsScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
+                    .testTag(DetailsScreenTags.ERROR)
             ) {
                 Text(text = "Error", modifier = Modifier.align(Alignment.Center))
             }
@@ -97,7 +104,8 @@ fun DetailsScreen(
                 LazyColumn(
                     modifier = Modifier
                         .padding(innerPadding)
-                        .fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp)
+                        .fillMaxSize()
+                        .testTag(DetailsScreenTags.CONTENT), verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     item {
                         RocketImagePager(

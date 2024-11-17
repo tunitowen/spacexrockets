@@ -41,13 +41,13 @@ class DetailsScreenViewModelTest {
             id = "1", name= "Falcon 9", active = true, images = emptyList(), engineType = "type"
         ))
         viewModel.getRocket("1")
-        assert(viewModel.rocket.value.data!!.id == "1")
+        assert(viewModel.rocketState.value.data!!.id == "1")
     }
 
     @Test
     fun getRocket_error_setsState() = runTest {
         coEvery { mockRocketRepository.getRocketById("1") } returns NetworkResponse.Failure(code = 404, error = "Not Found")
         viewModel.getRocket("1")
-        assert(viewModel.rocket.value.error != null)
+        assert(viewModel.rocketState.value.error != null)
     }
 }

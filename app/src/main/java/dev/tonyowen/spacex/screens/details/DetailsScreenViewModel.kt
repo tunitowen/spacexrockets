@@ -11,13 +11,13 @@ import kotlinx.coroutines.launch
 
 class DetailsScreenViewModel(private val rocketRepository: RocketRepository) : ViewModel() {
 
-    private val _rocket = MutableStateFlow<NetworkResponse<Rocket>>(NetworkResponse.Loading())
-    val rocket = _rocket.asStateFlow()
+    private val _rocketState = MutableStateFlow<NetworkResponse<Rocket>>(NetworkResponse.Loading())
+    val rocketState = _rocketState.asStateFlow()
 
     fun getRocket(id: String) {
         viewModelScope.launch {
             val response = rocketRepository.getRocketById(id)
-            _rocket.value = response
+            _rocketState.value = response
         }
     }
 }
